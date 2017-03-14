@@ -15,7 +15,7 @@ from decimal import *
 # def calculate_put_payout(optionContract, underlyingPrice):
 # 	return 0
 
-expiry_date_string = '9/16/16'
+expiry_date_string = '3/16/17'
 expiry_date = datetime.strptime(expiry_date_string, '%m/%d/%y')
 today = date.today()
 
@@ -24,6 +24,10 @@ days_left = expiry_date.date() - today
 S0 = 2184.5 #initial level
 K = 2185.0 #strike
 T = (float(days_left.days)/252) #time to maturity
+print 'T'
+print T
+print 'days_left'
+print days_left
 r = .0040 #riskless rate
 sigma = .0496 #vol
 # sigma = .0796 #vol
@@ -31,10 +35,10 @@ sigma = .0496 #vol
 I = 10000 #number of simulations
 
 z = np.random.standard_normal(I) #pseudorandom numbers
-# z = np.random.lognormal(I) #pseudorandom numbers
+# z = np.random.lognormal(size=I) #pseudorandom numbers
 ST = S0 * np.exp((r - .5 * sigma ** 2) * T + sigma * np.sqrt(T) * z) #index vals at maturity
 hT = np.maximum(ST - K, 0) #inner values at maturity
 C0 = np.exp(-r * T) * np.sum(hT) / I #monte carlo estimator
 
 print "value of european call options %5.8f" % C0
-	
+
